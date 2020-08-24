@@ -14,6 +14,11 @@ Las características principales de la aplicación son las siguientes:
 
 A medida que se avance con el proyecto la información aqui presente será actualizada.
 
+## Paquetes Adicionales
+
+* react-plotly
+* material-ui
+
 ## Contacto
 
 * **Nombre**: Pierre Simon Tondreau

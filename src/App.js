@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
+import Plot from 'react-plotly.js';
 import './App.css';
 
 function App() {
@@ -8,6 +9,19 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <Plot
+          data={[
+            {
+              x: [1, 2, 3],
+              y: [2, 6, 3],
+              type: 'scatter',
+              mode: 'lines+markers',
+              marker: { color: 'red' },
+            },
+            { type: 'bar', x: [1, 2, 3], y: [2, 5, 3] },
+          ]}
+          layout={{ width: 500, height: 500, title: 'Testing Plot' }}
+        />
         <Counter />
         <p>
           Edit <code>src/App.js</code> and save to reload.
