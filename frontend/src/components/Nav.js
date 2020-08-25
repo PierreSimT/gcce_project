@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { fileUpload, selectFile } from '../features/data/dataSlice';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     menuButton: {
@@ -19,6 +23,24 @@ const useStyles = makeStyles((theme) => ({
 const Nav = () => {
 
     const classes = useStyles();
+    const file = useSelector(selectFile);
+    const dispatch = useDispatch();
+    
+    const handleUpload = (event) => {
+        //console.log(event.target.files[0]);
+        dispatch(fileUpload(event.target.files[0]));
+        
+        var formData = new FormData();
+        formData.append("file", event.target.files[0]);
+        axios.post("http://localhost:8000/api/post/column/ok", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(res => {
+            console.log(res)
+        })
+
+    }
 
     return (
         <div>
@@ -30,7 +52,19 @@ const Nav = () => {
                     <Typography variant="h6" className={classes.title}>
                         App
                     </Typography>
-                    <Button color="inherit">Upload</Button>
+                    <Button
+                                variant="contained"
+                                component="label"
+                            >
+                                {file ? file.name : "Upload Data" }
+                        <input
+                                    type="file"
+                                    id="datafile"
+                                    style={{ display: "none" }}
+                                    onChange={handleUpload}
+                                    required
+                                />
+                    </Button>
                 </Toolbar>
             </AppBar>
         </div>
