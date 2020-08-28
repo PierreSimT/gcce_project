@@ -14,13 +14,11 @@ const darkTheme = createMuiTheme({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={darkTheme}>
         <App />
       </ThemeProvider>
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById('root')
 );
 

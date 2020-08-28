@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { fileUpload, selectFile } from '../features/data/dataSlice';
+import { applyColumns, applyFilename, getColumns, getFilename } from '../features/data/dataSlice';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -23,21 +23,23 @@ const useStyles = makeStyles((theme) => ({
 const Nav = () => {
 
     const classes = useStyles();
-    const file = useSelector(selectFile);
+    const file = useSelector(getFilename);
     const dispatch = useDispatch();
     
     const handleUpload = (event) => {
         //console.log(event.target.files[0]);
-        dispatch(fileUpload(event.target.files[0]));
+        //dispatch(fileUpload(event.target.files[0]));
         
         var formData = new FormData();
         formData.append("file", event.target.files[0]);
-        axios.post("http://localhost:8000/api/post/column/ok", formData, {
+        axios.post("http://localhost:8000/api/post/columns", formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(res => {
-            console.log(res)
+            console.log(res);
+            dispatch(applyFilename(res.data.filename));
+            dispatch(applyColumns(res.data.values));
         })
 
     }
@@ -56,7 +58,7 @@ const Nav = () => {
                                 variant="contained"
                                 component="label"
                             >
-                                {file ? file.name : "Upload Data" }
+                                {file ? file : "Upload Data" }
                         <input
                                     type="file"
                                     id="datafile"

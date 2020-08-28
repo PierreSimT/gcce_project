@@ -1,13 +1,15 @@
 import React from 'react';
-import Plot from 'react-plotly.js';
-import './App.css';
 import Nav from './components/Nav';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid } from '@material-ui/core';
+import Selector from './components/Selector';
+import Plotter from './components/Plotter';
+import Footer from './components/Footer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    background: '#212121'
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -16,8 +18,14 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
+    margin: theme.spacing(2),
     padding: theme.spacing(2),
-    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+  paper2: {
+    margin: theme.spacing(2),
+    padding: theme.spacing(2),
+    textAlign: "center",
     color: theme.palette.text.secondary,
   },
 }));
@@ -29,28 +37,20 @@ function App() {
   return (
     <div className={classes.root}>
       <Nav />
-      <br/>
-      <Grid container spacing={3}>
-        <Grid item xs={4}>
-          < Paper className={classes.paper}>xs=4</Paper>
+      <br />
+      <Grid container>
+        <Grid item md={4} xs={12}>
+          <Paper className={classes.paper}>
+            <Selector></Selector>
+          </Paper>
         </Grid>
-        <Grid container item xs={8} direction="column" alignItems="center">
-          <Paper className={classes.paper}>xs=8</Paper>
-          <Plot
-            data={[
-              {
-                x: [1, 2, 3],
-                y: [2, 6, 3],
-                type: 'scatter',
-                mode: 'lines+markers',
-                marker: { color: 'red' },
-              },
-              { type: 'bar', x: [1, 2, 3], y: [2, 5, 3] },
-            ]}
-            layout={{ width: 800, height: 650, title: 'Testing Plot' }}
-          />
+        <Grid item md={8} xs={12}>
+          <Paper className={classes.paper2}>
+            <Plotter></Plotter>
+          </Paper>
         </Grid>
       </Grid>
+      <Footer></Footer>
     </div>
   );
 }
