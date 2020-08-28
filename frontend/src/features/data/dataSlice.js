@@ -4,7 +4,7 @@ export const dataSlice = createSlice({
   name: 'data',
   initialState: {
     filename: '',
-    columns: [],
+    columns: []
   },
   reducers: {
     applyFilename : (state, action) => {

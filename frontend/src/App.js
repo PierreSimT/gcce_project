@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Nav from './components/Nav';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid } from '@material-ui/core';
@@ -34,6 +34,23 @@ function App() {
 
   const classes = useStyles();
 
+  const [dataX, setDataX] = useState()
+  const [dataY, setDataY] = useState()
+  const [dataType, setDataType] = useState()
+
+  const onChangeX = (column) => {
+    console.log(column)
+  }
+
+  const onChangeY = (column) => {
+    console.log(column)
+  }
+
+  const onChangeType = (type) => {
+    console.log(type)
+    setDataType(type)
+  }
+
   return (
     <div className={classes.root}>
       <Nav />
@@ -41,12 +58,12 @@ function App() {
       <Grid container>
         <Grid item md={4} xs={12}>
           <Paper className={classes.paper}>
-            <Selector></Selector>
+            <Selector changeX={onChangeX} changeY={onChangeY} changeType={onChangeType}></Selector>
           </Paper>
         </Grid>
         <Grid item md={8} xs={12}>
           <Paper className={classes.paper2}>
-            <Plotter></Plotter>
+            <Plotter plotType={dataType}></Plotter>
           </Paper>
         </Grid>
       </Grid>

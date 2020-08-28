@@ -8,12 +8,15 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     select: {
-        minWidth: 120
+        minWidth: 120,
+        width: '100%',
+    },
+    grid: {
+        padding: theme.spacing(1)
     }
-
 }));
 
-const Selector = () => {
+const Selector = (props) => {
 
     const classes = useStyles();
 
@@ -22,14 +25,49 @@ const Selector = () => {
 
     const [valueX, setValueX] = useState('');
     const [valueY, setValueY] = useState('');
+    const [plotType, setTyoe] = useState('');
+
+    const onChangeValueX = (event) => {
+        setValueX(event.target.value)
+        props.changeX(event.target.value)
+    }
+
+    const onChangeValueY = (event) => {
+        setValueY(event.target.value)
+        props.changeY(event.target.value)
+    }
+
+    const onChangeTyoe = (event) => {
+        setTyoe(event.target.value)
+        props.changeType(event.target.value)
+    }
 
     return (
         <div>
             <Typography variant="body1" gutterBottom>
                 A continuaci&oacute;n se seleccionar&aacute; la columna que representa el valor X e Y del conjunto de datos.
             </Typography>
-            <Grid container>
-                <Grid item xs={6}>
+            <Grid container >
+                <Grid item xs={4} className={classes.grid}>
+                <div style={{ textAlign: 'center' }}>
+                        <FormControl variant="filled" className={classes.select}>
+                            <InputLabel id="x-column-label">Type</InputLabel>
+                            <Select
+                                labelId="x-column-label"
+                                id="demo-simple-select"
+                                value={plotType}
+                                onChange={onChangeTyoe}
+                            >
+                                <MenuItem value="scatter">Scatter</MenuItem>
+                                <MenuItem value="lines">Lines</MenuItem>
+                                <MenuItem value="bar">Bar</MenuItem>
+                                <MenuItem value="pie">Pie</MenuItem>
+                                <MenuItem value="bubble">Bubble</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+                </Grid>
+                <Grid item xs={4} className={classes.grid}>
                     <div style={{ textAlign: 'center' }}>
                         <FormControl variant="filled" className={classes.select}>
                             <InputLabel id="x-column-label">X Column</InputLabel>
@@ -37,7 +75,7 @@ const Selector = () => {
                                 labelId="x-column-label"
                                 id="demo-simple-select"
                                 value={valueX}
-                                onChange={ event => setValueX(event.target.value)}
+                                onChange={onChangeValueX}
                             >
                                 {
                                     columns.map((val, idx) => {
@@ -48,7 +86,7 @@ const Selector = () => {
                         </FormControl>
                     </div>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={4} className={classes.grid}>
                     <div style={{ textAlign: 'center' }}>
                         <FormControl variant="filled" className={classes.select}>
                             <InputLabel id="x-column-label">Y Column</InputLabel>
@@ -56,7 +94,7 @@ const Selector = () => {
                                 labelId="x-column-label"
                                 id="demo-simple-select"
                                 value={valueY}
-                                onChange={ event => setValueY(event.target.value)}
+                                onChange={onChangeValueY}
                             >
                                 {
                                     columns.map((val, idx) => {
