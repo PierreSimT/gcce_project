@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { applyColumns, applyFilename, getColumns, getFilename } from '../features/data/dataSlice';
+import { applyColumns, applyFilename, applyFile, getColumns, getFilename } from '../features/data/dataSlice';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -29,7 +29,8 @@ const Nav = () => {
     const handleUpload = (event) => {
         //console.log(event.target.files[0]);
         //dispatch(fileUpload(event.target.files[0]));
-        
+
+        dispatch(applyFile(event.target.files[0]));
         var formData = new FormData();
         formData.append("file", event.target.files[0]);
         axios.post("http://localhost:8000/api/post/columns", formData, {

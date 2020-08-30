@@ -3,10 +3,15 @@ import { createSlice } from '@reduxjs/toolkit';
 export const dataSlice = createSlice({
   name: 'data',
   initialState: {
+    file: null,
     filename: '',
-    columns: []
+    columns: [],
   },
   reducers: {
+    applyFile : (state, action) => {
+      console.log(action.payload);
+      state.file = action.payload;
+    },
     applyFilename : (state, action) => {
       console.log(action.payload);
       state.filename = action.payload;
@@ -18,7 +23,7 @@ export const dataSlice = createSlice({
   },
 });
 
-export const { applyColumns, applyFilename } = dataSlice.actions;
+export const { applyColumns, applyFilename, applyFile } = dataSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -35,5 +40,6 @@ export const { applyColumns, applyFilename } = dataSlice.actions;
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
 export const getFilename = state => state.data.filename;
 export const getColumns = state => state.data.columns;
+export const getFile = state => state.data.file;
 
 export default dataSlice.reducer;

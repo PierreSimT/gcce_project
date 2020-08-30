@@ -11,8 +11,8 @@ const Plotter = (props) => {
       //config={{ responsive: true }}
       data={[
         {
-          x: [1, 2, 3],
-          y: [2, 6, 3],
+          x: props.valuesX,
+          y: props.valuesY,
           type: 'scatter',
           mode: 'markers',
         }
@@ -26,8 +26,8 @@ const Plotter = (props) => {
       //config={{ responsive: true }}
       data={[
         {
-          x: [1, 2, 3],
-          y: [2, 6, 3],
+          x: props.valuesX,
+          y: props.valuesY,
           mode: 'lines',
           marker: { color: 'red' },
         }
@@ -41,10 +41,17 @@ const Plotter = (props) => {
       //config={{ responsive: true }}
       data={[
         {
-          x: [1, 2, 3],
-          y: [2, 6, 3],
+          x: props.valuesX,
+          y: props.valuesY,
           type: 'bar',
-          marker: { color: 'red' }
+          transforms: [ 
+          {
+            type: 'aggregate',
+            groups: props.valuesX,
+            aggregations: [
+              { target: 'y', func: 'sum', enabled: true }, // ENABLED BY A CHECKBOX TODO: AÑADIR AL RESTO DE PLOTS
+            ]
+          }]
         }
       ]}
       layout={{ title: 'Bar Chart' }}
@@ -56,9 +63,17 @@ const Plotter = (props) => {
       //config={{ responsive: true }}
       data={[
         {
-          values: [1, 2, 3],
-          labels: ['Test1', 'Test2', 'Test3'],
+          values: props.valuesX,
+          labels: props.valuesY, //['Test1', 'Test2', 'Test3'],
           type: 'pie',
+          transforms: [ 
+            {
+              type: 'aggregate',
+              groups: props.valuesX,
+              aggregations: [
+                { target: 'y', func: 'sum', enabled: true }, // BUSCAR LA MEJOR TRANSFORMACION PARA ESTE PLOT
+              ]
+            }]
         }
       ]}
       layout={{ title: 'Pie Chart' }}
@@ -70,11 +85,11 @@ const Plotter = (props) => {
       //config={{ responsive: true }}
       data={[
         {
-          x: [1, 2, 3],
-          y: [2, 6, 3],
+          x: props.valuesX,
+          y: props.valuesY,
           mode: 'markers',
-          marker: { 
-            size: [20, 30, 40]
+          marker: {
+            size: [20, 30, 40] // BUSCAR COMO OBTENER UN TAMAÑO PARA LOS MARCADOS
           },
         }
       ]}
