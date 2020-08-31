@@ -6,24 +6,34 @@ export const dataSlice = createSlice({
     file: null,
     filename: '',
     columns: [],
+    dataX: [],
+    dataY: []
   },
   reducers: {
-    applyFile : (state, action) => {
+    applyFile: (state, action) => {
       console.log(action.payload);
       state.file = action.payload;
     },
-    applyFilename : (state, action) => {
+    applyFilename: (state, action) => {
       console.log(action.payload);
       state.filename = action.payload;
     },
-    applyColumns : (state, action) => {
-        console.log(action.payload);
-        state.columns = action.payload;
+    applyColumns: (state, action) => {
+      console.log(action.payload);
+      state.columns = action.payload;
+    },
+    applyDataX: (state, action) => {
+      console.log(action.payload);
+      state.dataX = action.payload;
+    },
+    applyDataY: (state, action) => {
+      console.log(action.payload);
+      state.dataY = action.payload;
     }
   },
 });
 
-export const { applyColumns, applyFilename, applyFile } = dataSlice.actions;
+export const { applyColumns, applyFilename, applyFile, applyDataX, applyDataY } = dataSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -41,5 +51,7 @@ export const { applyColumns, applyFilename, applyFile } = dataSlice.actions;
 export const getFilename = state => state.data.filename;
 export const getColumns = state => state.data.columns;
 export const getFile = state => state.data.file;
+export const getDataX = state => state.data.dataX;
+export const getDataY = state => state.data.dataY;
 
 export default dataSlice.reducer;

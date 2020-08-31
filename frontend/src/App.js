@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { applyColumns, applyFilename, getFile } from './features/data/dataSlice';
+import { applyColumns, applyFilename, applyDataX, applyDataY, getFile, getDataX, getDataY } from './features/data/dataSlice';
 import Nav from './components/Nav';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid } from '@material-ui/core';
 import Selector from './components/Selector';
-import Plotter from './components/Plotter';
+import Plotter from './components/Plotter/Plotter';
 import Footer from './components/Footer';
 
 import axios from 'axios';
@@ -40,9 +40,6 @@ function App() {
 
   const dispatch = useDispatch();
   const file = useSelector(getFile);
-
-  const [dataX, setDataX] = useState()
-  const [dataY, setDataY] = useState()
   const [dataType, setDataType] = useState()
 
   const onChangeX = (column) => {
@@ -56,7 +53,7 @@ function App() {
       }
     }).then(res => {
       console.log(res)
-      setDataX(res.data.values)
+      dispatch(applyDataX(res.data.values))
     })
   }
 
@@ -71,7 +68,7 @@ function App() {
       }
     }).then(res => {
       console.log(res)
-      setDataY(res.data.values)
+      dispatch(applyDataY(res.data.values))
     })
   }
 
@@ -92,7 +89,7 @@ function App() {
         </Grid>
         <Grid item md={8} xs={12}>
           <Paper className={classes.paper2}>
-            <Plotter plotType={dataType} valuesX={dataX} valuesY={dataY}></Plotter>
+            <Plotter plotType={dataType}></Plotter>
           </Paper>
         </Grid>
       </Grid>
