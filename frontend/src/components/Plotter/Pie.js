@@ -22,7 +22,7 @@ const Pie = () => {
                                 type: 'aggregate',
                                 groups: dataX,
                                 aggregations: [
-                                    { target: 'y', func: 'sum', enabled: true }, // BUSCAR LA MEJOR TRANSFORMACION PARA ESTE PLOT
+                                    { target: 'values', func: 'sum', enabled: true }, // BUSCAR LA MEJOR TRANSFORMACION PARA ESTE PLOT
                                 ]
                             }]
                     }

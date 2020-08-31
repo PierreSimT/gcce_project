@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { applyColumns, applyFilename, applyDataX, applyDataY, getFile, getDataX, getDataY } from './features/data/dataSlice';
+import { applyColumns, applyFilename, applyDataX, applyDataY, applyDataSize, getFile, getDataX, getDataY } from './features/data/dataSlice';
 import Nav from './components/Nav';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid } from '@material-ui/core';
@@ -72,6 +72,21 @@ function App() {
     })
   }
 
+  const onChangeSize = (column) => {
+    console.log(column)
+
+    var formData = new FormData();
+    formData.append("file", file);
+    axios.post(`http://localhost:8000/api/post/column/${column}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(res => {
+      console.log(res)
+      dispatch(applyDataSize(res.data.values))
+    })
+  }
+
   const onChangeType = (type) => {
     console.log(type)
     setDataType(type)
@@ -84,7 +99,7 @@ function App() {
       <Grid container>
         <Grid item md={4} xs={12}>
           <Paper className={classes.paper}>
-            <Selector changeX={onChangeX} changeY={onChangeY} changeType={onChangeType}></Selector>
+            <Selector changeX={onChangeX} changeY={onChangeY} changeType={onChangeType} changeSize={onChangeSize}></Selector>
           </Paper>
         </Grid>
         <Grid item md={8} xs={12}>

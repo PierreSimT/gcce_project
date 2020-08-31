@@ -25,6 +25,7 @@ const Selector = (props) => {
 
     const [valueX, setValueX] = useState('');
     const [valueY, setValueY] = useState('');
+    const [valueSize, setValueSize] = useState('');
     const [plotType, setTyoe] = useState('');
 
     const onChangeValueX = (event) => {
@@ -40,6 +41,12 @@ const Selector = (props) => {
     const onChangeTyoe = (event) => {
         setTyoe(event.target.value)
         props.changeType(event.target.value)
+    }
+
+    const onChangeSize = (event) => {
+        console.log(event.target)
+        setValueSize(event.target.value)
+        props.changeSize(event.target.value)
     }
 
     return (
@@ -105,6 +112,26 @@ const Selector = (props) => {
                         </FormControl>
                     </div>
                 </Grid>
+                { plotType === 'bubble' ? 
+                <Grid item xs={12} className={classes.grid}>
+                    <div style={{ textAlign: 'center' }}>
+                        <FormControl variant="filled" className={classes.select}>
+                            <InputLabel id="x-column-label">Bubble Size</InputLabel>
+                            <Select
+                                labelId="x-column-label"
+                                id="demo-simple-select"
+                                value={valueSize}
+                                onChange={onChangeSize}
+                            >
+                                {
+                                    columns.map((val, idx) => {
+                                        return <MenuItem key={idx} value={val}>{val}</MenuItem>
+                                    })
+                                }
+                            </Select>
+                        </FormControl>
+                    </div>
+                </Grid> : <div></div>}
             </Grid>
         </div>
     )
