@@ -7,17 +7,18 @@ La idea del proyecto es realizar una SPA o PWA que presente ciertas similitudes 
 Las características principales de la aplicación son las siguientes:
 
 * Representación de datos de forma interactiva, esto significa que se permite la selección de los datos a representar como las columnas que se deseen representar. 
-
-* De una forma preliminar se muestran unos datos de ejemplo, mediante los cuales el usuario podrá interactuar y familiarizarse con la herramienta.
-
-* Adicionalmente, se realizarán estudios sobre los datos. Esto significa que se ejecutarán técnicas de BI (Business Intelligence) básicas, sobre los conjuntos de datos que se introduzcan. En concreto se realizará un análisis sobre los datos.
-
-A medida que se avance con el proyecto la información aqui presente será actualizada.
+* Se permite la subida de cualquier tipo de conjunto de datos
 
 ## Paquetes Adicionales
 
+Frontend:
 * react-plotly
 * material-ui
+* axios
+
+Backend:
+* FastAPI
+* Pandas
 
 ## Contacto
 

@@ -17,7 +17,14 @@ const Lines = () => {
                         x: dataX,
                         y: dataY,
                         mode: 'lines',
-                        marker: { color: 'red' },
+                        transforms: [
+                            {
+                                type: 'aggregate',
+                                groups: dataX,
+                                aggregations: [
+                                    { target: 'y', func: 'sum', enabled: true }, // ENABLED BY A CHECKBOX TODO: AÑADIR AL RESTO DE PLOTS
+                                ]
+                            }]
                     }
                 ]}
                 layout={{ title: 'Lines Plot' }}
